@@ -75,6 +75,20 @@ describe("twiml generation utility", () => {
         ].join('');
         expect(result).to.equal(test);
     });
+    it('should support using helper functions named after each element', function () {
+        var result = index_1.default(index_1.Say({ voice: 'woman', language: '&<>' }, 'test'), index_1.Dial(index_1.Sip({ username: 'admin', password: 123 }, 'test2')), index_1.Record({ maxLength: 20 }));
+        var test = [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<Response>',
+            '<Say voice="woman" language="&amp;&lt;&gt;">test</Say>',
+            '<Dial>',
+            '<Sip username="admin" password="123">test2</Sip>',
+            '</Dial>',
+            '<Record maxLength="20"></Record>',
+            '</Response>'
+        ].join('');
+        expect(result).to.equal(test);
+    });
     it('should allow an enqueue a task', function () {
         var result = index_1.default(['Enqueue',
             ['Task', { priority: '10', timeout: '30' }, JSON.stringify({ selected_language: "en" })]]);
