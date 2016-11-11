@@ -1,0 +1,39 @@
+{
+  "name": "twiml-builder",
+  "version": "1.0.0",
+  "description": "Easily build twiml documents.",
+  "license": "MIT",
+  "repository": "",
+  "author": "",
+  "keywords": [
+    ""
+  ],
+  "main": "build/src/index.js",
+  "typings": "build/src/index.d.ts",
+  "scripts": {
+    "clean": "rimraf build",
+    "lint": "tslint --type-check --project tsconfig.json --format verbose 'src/**/*.ts'",
+    "build": "npm run build:lintfree && npm run lint",
+    "build:lintfree": "npm run clean && echo Using TypeScript && tsc --version && tsc --pretty",
+    "test": "export NODE_ENV=testing; mocha --compilers ts:ts-node/register --recursive test/**/*Spec.ts",
+    "watch": "npm run build -- --watch",
+    "watch:lintfree": "npm run build:lintfree -- --watch",
+    "watch:test": "npm run test -- --watch"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/chai": "3.4.30",
+    "@types/mocha": "2.2.29",
+    "@types/node": "6.0.31",
+    "chai": "^3.5.0",
+    "mocha": "^3.0.1",
+    "rimraf": "^2.5.4",
+    "ts-node": "^1.2.2",
+    "tslint": "3.15.1",
+    "typescript": "2.0.9"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  }
+}
