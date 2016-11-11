@@ -43,6 +43,33 @@ export default function twiml(...tags: Tag[]) {
     '<Response>' + tags.map(tagToString).join('') + '</Response>';
 }
 
+// It's annoying that the below is so not DRY, but that's how it has to be, b/c
+// typescript exports, which follow the ES6 design, must be declared statically.
+export const Say =        (...args: (TagContent|TagAttributes)[]) => <Tag>['Say', ...args]
+export const Play =       (...args: (TagContent|TagAttributes)[]) => <Tag>['Play', ...args]
+export const Pause =      (...args: (TagContent|TagAttributes)[]) => <Tag>['Pause', ...args]
+export const Gather =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Gather', ...args]
+export const Record =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Record', ...args]
+export const Dial =       (...args: (TagContent|TagAttributes)[]) => <Tag>['Dial', ...args]
+export const Number =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Number', ...args] //tslint:disable-line
+export const Client =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Client', ...args]
+export const Conference = (...args: (TagContent|TagAttributes)[]) => <Tag>['Conference', ...args]
+export const Sip =        (...args: (TagContent|TagAttributes)[]) => <Tag>['Sip', ...args]
+export const Queue =      (...args: (TagContent|TagAttributes)[]) => <Tag>['Queue', ...args]
+export const Enqueue =    (...args: (TagContent|TagAttributes)[]) => <Tag>['Enqueue', ...args]
+export const Task =       (...args: (TagContent|TagAttributes)[]) => <Tag>['Task', ...args]
+export const Leave =      (...args: (TagContent|TagAttributes)[]) => <Tag>['Leave', ...args]
+export const Hangup =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Hangup', ...args]
+export const Redirect =   (...args: (TagContent|TagAttributes)[]) => <Tag>['Redirect', ...args]
+export const Reject =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Reject', ...args]
+export const Sms =        (...args: (TagContent|TagAttributes)[]) => <Tag>['Sms', ...args]
+export const Message =    (...args: (TagContent|TagAttributes)[]) => <Tag>['Message', ...args]
+export const Media =      (...args: (TagContent|TagAttributes)[]) => <Tag>['Media', ...args]
+export const Body =       (...args: (TagContent|TagAttributes)[]) => <Tag>['Body', ...args]
+
+
+
+
 // Escape XML entites in a given string
 function esc(str: any) {
   return String(str).replace(/&/g, '&amp;')

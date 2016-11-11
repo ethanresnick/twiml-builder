@@ -1,5 +1,5 @@
 import * as chai from "chai";
-import sut from "../src/index";
+import { Say, Play, Record, Dial, Sip, default as sut } from "../src/index";
 
 const {expect} = chai;
 
@@ -104,6 +104,28 @@ describe("twiml generation utility", () => {
 
     expect(result).to.equal(test);
   });
+
+  it('should support using helper functions named after each element', function() {
+    var result = sut(
+      Say({ voice:'woman', language:'&<>' }, 'test'),
+      Dial(
+        Sip({ username:'admin', password: 123 }, 'test2')),
+      Record({maxLength: 20})
+    );
+
+    var test = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<Response>',
+      '<Say voice="woman" language="&amp;&lt;&gt;">test</Say>',
+      '<Dial>',
+        '<Sip username="admin" password="123">test2</Sip>',
+      '</Dial>',
+      '<Record maxLength="20"></Record>',
+      '</Response>'
+    ].join('');
+
+    expect(result).to.equal(test);
+  })
 
   it('should allow an enqueue a task', function() {
     var result = sut(

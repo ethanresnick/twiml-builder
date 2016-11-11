@@ -1,18 +1,20 @@
 # Twiml Builder
 
 A simple function for creating [Twiml](https://www.twilio.com/docs/api/twiml)
-documents. Using this function lets you build up your document as data (rather
-than as a string), and it handles pesky things like XML character escaping and
-adding the XML document header for you.
+documents, with helper functions for each tag (to give nice autocomplete).
+
+Using this function lets you build up your document as data (rather than as a
+string), and it handles pesky things like XML character escaping and adding the
+XML document header for you.
 
 For example:
 
 ```js
-var twiml = require('twiml-builder');
+var { Gather, Say, Record, default: twiml } = require('twiml-builder');
 
 twiml(
-  ['Say', {voice: 'woman'}, 'Please leave a message after the tone.'],
-  ['Record', {maxLength: 20}]
+  Say({voice: 'woman'}, 'Please leave a message after the tone.'),
+  Record({maxLength: 20})
 );
 ```
 
@@ -67,3 +69,19 @@ Produces:
     </Gather>
 </Response>
 ```
+
+## Element Helper Functions
+
+For every tag name, there's a helper function with the same name that simply
+takes an arbitrary number of arguments, and returns an array where the element's
+name is the first entry, and all the arguments provided are the subsequent
+entries.
+
+For example, `Gather(a, b, c)` returns `['Gather', a, b, c]`.
+
+This tiny bit of sugar makes the API a bit more concise, and works well with
+many editors' autocomplete features.
+
+> Note: for the `Number` element, you'll likely want to import the helper
+function using a different name, to prevent it from conflicting with
+Javascript's built-in Number function.
