@@ -9,6 +9,8 @@ export type TagAttributes = {[attrName: string]: string | number | boolean };
 
 export type TagContent = string | number | Tag;
 
+export type TagEntriesAfterName = TagContent | TagAttributes;
+
 export type Tag = [TagName] | TagNoAttributes | TagWithAttributes;
 
 // We need to introduce these interfaces below to describe our Tag lists
@@ -32,7 +34,7 @@ export interface TagNoAttributes extends Array<TagContent> {
   1: TagContent
 }
 
-export interface TagWithAttributes extends Array<TagContent|TagAttributes> {
+export interface TagWithAttributes extends Array<TagEntriesAfterName> {
   0: TagName,
   1: TagAttributes,
   2?: TagContent
@@ -45,27 +47,27 @@ export default function twiml(...tags: Tag[]) {
 
 // It's annoying that the below is so not DRY, but that's how it has to be, b/c
 // typescript exports, which follow the ES6 design, must be declared statically.
-export const Say =        (...args: (TagContent|TagAttributes)[]) => <Tag>['Say', ...args]
-export const Play =       (...args: (TagContent|TagAttributes)[]) => <Tag>['Play', ...args]
-export const Pause =      (...args: (TagContent|TagAttributes)[]) => <Tag>['Pause', ...args]
-export const Gather =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Gather', ...args]
-export const Record =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Record', ...args]
-export const Dial =       (...args: (TagContent|TagAttributes)[]) => <Tag>['Dial', ...args]
-export const Number =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Number', ...args] //tslint:disable-line
-export const Client =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Client', ...args]
-export const Conference = (...args: (TagContent|TagAttributes)[]) => <Tag>['Conference', ...args]
-export const Sip =        (...args: (TagContent|TagAttributes)[]) => <Tag>['Sip', ...args]
-export const Queue =      (...args: (TagContent|TagAttributes)[]) => <Tag>['Queue', ...args]
-export const Enqueue =    (...args: (TagContent|TagAttributes)[]) => <Tag>['Enqueue', ...args]
-export const Task =       (...args: (TagContent|TagAttributes)[]) => <Tag>['Task', ...args]
-export const Leave =      (...args: (TagContent|TagAttributes)[]) => <Tag>['Leave', ...args]
-export const Hangup =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Hangup', ...args]
-export const Redirect =   (...args: (TagContent|TagAttributes)[]) => <Tag>['Redirect', ...args]
-export const Reject =     (...args: (TagContent|TagAttributes)[]) => <Tag>['Reject', ...args]
-export const Sms =        (...args: (TagContent|TagAttributes)[]) => <Tag>['Sms', ...args]
-export const Message =    (...args: (TagContent|TagAttributes)[]) => <Tag>['Message', ...args]
-export const Media =      (...args: (TagContent|TagAttributes)[]) => <Tag>['Media', ...args]
-export const Body =       (...args: (TagContent|TagAttributes)[]) => <Tag>['Body', ...args]
+export const Say =        (...args: TagEntriesAfterName[]) => <Tag>['Say', ...args]
+export const Play =       (...args: TagEntriesAfterName[]) => <Tag>['Play', ...args]
+export const Pause =      (...args: TagEntriesAfterName[]) => <Tag>['Pause', ...args]
+export const Gather =     (...args: TagEntriesAfterName[]) => <Tag>['Gather', ...args]
+export const Record =     (...args: TagEntriesAfterName[]) => <Tag>['Record', ...args]
+export const Dial =       (...args: TagEntriesAfterName[]) => <Tag>['Dial', ...args]
+export const Number =     (...args: TagEntriesAfterName[]) => <Tag>['Number', ...args] //tslint:disable-line
+export const Client =     (...args: TagEntriesAfterName[]) => <Tag>['Client', ...args]
+export const Conference = (...args: TagEntriesAfterName[]) => <Tag>['Conference', ...args]
+export const Sip =        (...args: TagEntriesAfterName[]) => <Tag>['Sip', ...args]
+export const Queue =      (...args: TagEntriesAfterName[]) => <Tag>['Queue', ...args]
+export const Enqueue =    (...args: TagEntriesAfterName[]) => <Tag>['Enqueue', ...args]
+export const Task =       (...args: TagEntriesAfterName[]) => <Tag>['Task', ...args]
+export const Leave =      (...args: TagEntriesAfterName[]) => <Tag>['Leave', ...args]
+export const Hangup =     (...args: TagEntriesAfterName[]) => <Tag>['Hangup', ...args]
+export const Redirect =   (...args: TagEntriesAfterName[]) => <Tag>['Redirect', ...args]
+export const Reject =     (...args: TagEntriesAfterName[]) => <Tag>['Reject', ...args]
+export const Sms =        (...args: TagEntriesAfterName[]) => <Tag>['Sms', ...args]
+export const Message =    (...args: TagEntriesAfterName[]) => <Tag>['Message', ...args]
+export const Media =      (...args: TagEntriesAfterName[]) => <Tag>['Media', ...args]
+export const Body =       (...args: TagEntriesAfterName[]) => <Tag>['Body', ...args]
 
 
 
