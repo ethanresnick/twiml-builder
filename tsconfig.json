@@ -4,6 +4,8 @@
     "declaration": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "alwaysStrict": true,
     "outDir": "./build",
     "preserveConstEnums": true,
     "removeComments": true,
