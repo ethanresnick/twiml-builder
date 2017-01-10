@@ -106,14 +106,14 @@ describe("twiml generation utility", () => {
   });
 
   it('should support using helper functions named after each element', function() {
-    var result = sut(
+    const result = sut(
       Say({ voice:'woman', language:'&<>' }, 'test'),
       Dial(
         Sip({ username:'admin', password: 123 }, 'test2')),
       Record({maxLength: 20})
     );
 
-    var test = [
+    const test = [
       '<?xml version="1.0" encoding="UTF-8"?>',
       '<Response>',
       '<Say voice="woman" language="&amp;&lt;&gt;">test</Say>',
@@ -125,7 +125,26 @@ describe("twiml generation utility", () => {
     ].join('');
 
     expect(result).to.equal(test);
-  })
+  });
+
+  it('should allow mixing of helper functions and plain arrays', function() {
+    const result = sut(
+      ['Gather', { timeout:15, finishOnKey:'#' },
+            Play('foobar')]
+    );
+
+    const test = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<Response>',
+        '<Gather timeout="15" finishOnKey="#">',
+          '<Play>foobar</Play>',
+        '</Gather>',
+      '</Response>'
+    ].join('');
+
+    expect(result).to.equal(test);
+  });
+
 
   it('should allow an enqueue a task', function() {
     var result = sut(
