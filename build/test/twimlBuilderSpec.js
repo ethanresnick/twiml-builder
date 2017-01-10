@@ -76,8 +76,8 @@ describe("twiml generation utility", () => {
         expect(result).to.equal(test);
     });
     it('should support using helper functions named after each element', function () {
-        var result = index_1.default(index_1.Say({ voice: 'woman', language: '&<>' }, 'test'), index_1.Dial(index_1.Sip({ username: 'admin', password: 123 }, 'test2')), index_1.Record({ maxLength: 20 }));
-        var test = [
+        const result = index_1.default(index_1.Say({ voice: 'woman', language: '&<>' }, 'test'), index_1.Dial(index_1.Sip({ username: 'admin', password: 123 }, 'test2')), index_1.Record({ maxLength: 20 }));
+        const test = [
             '<?xml version="1.0" encoding="UTF-8"?>',
             '<Response>',
             '<Say voice="woman" language="&amp;&lt;&gt;">test</Say>',
@@ -85,6 +85,19 @@ describe("twiml generation utility", () => {
             '<Sip username="admin" password="123">test2</Sip>',
             '</Dial>',
             '<Record maxLength="20"></Record>',
+            '</Response>'
+        ].join('');
+        expect(result).to.equal(test);
+    });
+    it('should allow mixing of helper functions and plain arrays', function () {
+        const result = index_1.default(['Gather', { timeout: 15, finishOnKey: '#' },
+            index_1.Play('foobar')]);
+        const test = [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<Response>',
+            '<Gather timeout="15" finishOnKey="#">',
+            '<Play>foobar</Play>',
+            '</Gather>',
             '</Response>'
         ].join('');
         expect(result).to.equal(test);
