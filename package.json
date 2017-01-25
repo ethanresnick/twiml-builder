@@ -30,7 +30,7 @@
     "mocha": "^3.0.1",
     "rimraf": "^2.5.4",
     "ts-node": "^2.0.0",
-    "tslint": "4.2.0",
+    "tslint": "4.4.1",
     "typescript": "2.1.5"
   },
   "engines": {
